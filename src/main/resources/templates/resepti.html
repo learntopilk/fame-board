@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Resepti</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body>
+
+        <div>
+            <a href="/">Etusivu</a>
+            <a href="/reseptit">Katsele reseptejä</a>
+            <a href="/raaka_aineet">Lisää tai päivitä raaka-aineita</a>
+            <a href="/lisaaresepti">Lisää uusi resepti</a>
+        </div>
+        <table style="width:100%">
+            <ul style="list-style-type:none">
+                <li th:each="ARA : ${resepti}" style="list-style-type: none;">
+                <tr>
+                    <td>
+                        <h2>Valitsemasi resepti: <span th:text="${ARA.nimi}"/></h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span th:text="${ARA.valmistusohje}"/></td>
+                </tr>
+                </li>
+            </ul>
+        </table>
+        <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+        </style>
+        <table style="width:100%">
+            <tr>
+                
+                <th></th>
+                <th>Aine</th> 
+                <th>Määrä</th>
+                <th>Mittayksikkö</th>
+                <th>Kuvaus</th>
+                <th>Lisäysohje</th>
+            </tr>
+
+            <ul style="list-style-type:none">
+                <li th:each="annosaine : ${aineet}" style="list-style-type: none;">
+                <tr>
+                    <td><span th:text="${annosaine.jarjestys}"/></td>
+                    <td><span th:text="${annosaine.raakaaineenNimi}"/></td>
+                    <td><span th:text="${annosaine.maara}"/></td>
+                    <td><span th:text="${annosaine.mittayksikko}"/></td>
+                    <td><span th:text="${annosaine.kuvaus}"/></td>
+                    <td><span th:text="${annosaine.ohje}"/></td>
+                </tr>
+                </li>
+            </ul>
+
+
+
+        </table>
+
+        
+        
+        
+    </body>
+    
+    
+</html>
