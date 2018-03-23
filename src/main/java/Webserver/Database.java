@@ -7,14 +7,6 @@ import java.sql.DriverManager;
 
 public class Database {
 
-    /*
-    private String databaseAddress;
-
-    public Database(String databaseAddress) throws ClassNotFoundException {
-        this.databaseAddress = databaseAddress;
-    }
-    
-     */
     // Yrittää yhteyttä PostGres-tietokantaan. Jos sitä ei ole, ottaa yhteyden paikalliseen tietokantaan.
     //Huom, muutin Exceptionin SQLExceptioniksi, muuten tuli erroria metodia kutsuttaessa.
     public static Connection getConnection() throws SQLException {
@@ -23,7 +15,7 @@ public class Database {
             return DriverManager.getConnection(dbUrl);
         }
 
-        return DriverManager.getConnection("jdbc:sqlite:resepti.db");
+        return DriverManager.getConnection("jdbc:sqlite:viestikanta.db");
     }
 
 }
