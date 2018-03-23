@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Uuden reseptin luominen</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <a href="/">Etusivu</a>
+
+        </div>
+        <h2>Täällä näitä viestejä on!</h2>
+        <ul style="list-style-type:none">
+            <li th:each="viesti : ${viestit}" style="list-style-type: none;">
+            
+                <span th:text="${viesti.header}"/>
+                <span th:text="${viesti.getMessage}"/>
+
+            
+        </li>
+    </ul>
+
+
+    <br>
+
+    <br>
+    <form method="POST" action="viesti">
+        <input type="text" name="header" placeholder="Otsikko" required></input>
+        <input name="message" placeholder="Viesti tähän"></input>
+
+        <input type="submit" name="end" value="Valmis"></input>
+    </form>
+    <br>
+    <br>
+
+</body>
+
+</html>

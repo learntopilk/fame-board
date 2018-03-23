@@ -10,7 +10,7 @@ import Webserver.Viesti;
 public class ViestiDao implements Dao {
 
     @Override
-    public Object findOne(Object key) throws SQLException {
+    public Viesti findOne(Object key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -18,9 +18,20 @@ public class ViestiDao implements Dao {
     public List findAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public List findAllByUsername(String username) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public List findAllByUserId(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     @Override
-    public Object saveOrUpdate(Object object) throws SQLException {
+    public Boolean saveOrUpdate(Object viesti) throws SQLException {
+        Connection conn = getConnection();
+        
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

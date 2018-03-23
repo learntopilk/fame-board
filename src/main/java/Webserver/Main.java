@@ -4,6 +4,7 @@ import DAOs.*;
 import java.sql.SQLException;
 import java.util.*;
 import spark.*;
+import spark.Spark;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 //import java.io.File;
 
@@ -18,12 +19,25 @@ public class Main {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
 
+        ViestiDao v = new ViestiDao();
+        
         System.out.println("Server starting.");
 
         /**
          * R E I T I T
          */
-        // Tästä alkavat "oikeat" eli tuotantoreitit
+        
+        Spark.post("/viesti", (req, res) -> {
+        
+        
+        return " ";
+        });
+        
+        Spark.get("/viestit", (req, res) -> {
+        HashMap map = new HashMap<>();
+            
+        return new ModelAndView(map, "allmessages");
+        }, new ThymeleafTemplateEngine());
 
         // "Catch-all" -reitti
         Spark.get("*", (req, res) -> {
