@@ -17,10 +17,10 @@ and open the template in the editor.
         </div>
         <h2>Täällä näitä viestejä on!</h2>
         <ul style="list-style-type:none">
-            <li th:each="viesti : ${viestit}" style="list-style-type: none;">
+            <li th:each="viesti : ${messages}" style="list-style-type: none;">
             
-                <span th:text="${viesti.header}"/>
-                <span th:text="${viesti.getMessage}"/>
+                <H4 th:text="${viesti.getOtsikko}"></h4>
+                <p th:text="${viesti.getMessage}"></p>
 
             
         </li>
@@ -32,7 +32,7 @@ and open the template in the editor.
     <br>
     <form method="POST" action="viesti">
         <input type="text" name="header" placeholder="Otsikko" required></input>
-        <input name="message" placeholder="Viesti tähän"></input>
+        <input type="text" name="content" placeholder="Viesti tähän"></input>
 
         <input type="submit" name="end" value="Valmis"></input>
     </form>

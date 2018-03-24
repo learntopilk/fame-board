@@ -28,16 +28,19 @@ public class Main {
          */
         
         Spark.post("/viesti", (req, res) -> {
+            String ots = req.queryParams("header");
+            String sis = req.queryParams("content");
             
-            
+            v.saveOrUpdate(new Viesti(ots, sis));
         
-        
+        res.redirect("/viestit");
         return " ";
         });
         
         Spark.get("/viestit", (req, res) -> {
         HashMap map = new HashMap<>();
-            
+        
+        map.put("messages", v.findAll());
         return new ModelAndView(map, "allmessages");
         }, new ThymeleafTemplateEngine());
 

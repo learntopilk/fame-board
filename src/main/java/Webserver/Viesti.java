@@ -9,20 +9,25 @@ public class Viesti {
     private String otsikko;
     private String sisalto;
     // LONG INSTEAD OF DATE
-    private Date luomisaika;
+    private long luomisaika;
     private String kuvanURL;
     private String luoja;
+    private int kayttaja_id;
 
     public Viesti(String otsikko, String sisalto) {
         this.sisalto = sisalto;
         this.otsikko = otsikko;
-        luomisaika = new Date();
+        luomisaika = System.currentTimeMillis();
+        
+        this.luoja = "Unknown";
+        this.keskustelu_id = 1;
+        this.kayttaja_id = 1;
     }
 
     public Viesti(String otsikko, String sisalto, int id) {
         this.sisalto = sisalto;
         this.otsikko = otsikko;
-        luomisaika = new Date();
+        luomisaika = System.currentTimeMillis();
         this.id = id;
     }
 
@@ -51,7 +56,7 @@ public class Viesti {
         return this.kuvanURL;
     }
 
-    public Date getLuomisaika() {
+    public long getLuomisaika() {
         return this.luomisaika;
     }
     
@@ -60,6 +65,10 @@ public class Viesti {
     }
     public int getKeskustelu_id() {
         return this.keskustelu_id;
+    }
+    
+    public int getKayttajaId() {
+        return this.kayttaja_id;
     }
 
     public void setSisalto(String sis) {
@@ -70,7 +79,7 @@ public class Viesti {
         this.otsikko = ots;
     }
 
-    public void setLuomisaika(Date dat) {
+    public void setLuomisaika(Long dat) {
         this.luomisaika = dat;
     }
 
@@ -84,6 +93,10 @@ public class Viesti {
     
     public void setKeskustelu_id(int id) {
         this.keskustelu_id = id;
+    }
+    
+    public void setKayttajaId(int id) {
+        this.kayttaja_id = id;
     }
 
 }

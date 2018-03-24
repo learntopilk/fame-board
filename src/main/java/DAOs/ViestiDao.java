@@ -6,6 +6,7 @@ import java.sql.*;
 import static Webserver.Database.getConnection;
 
 import Webserver.Viesti;
+import java.util.ArrayList;
 
 public class ViestiDao implements Dao {
 
@@ -44,7 +45,27 @@ public class ViestiDao implements Dao {
 
     @Override
     public List findAll() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Viesti> a = new ArrayList<>();
+        
+        try {
+            Connection conn = getConnection();
+            
+            PreparedStatement getter = conn.prepareStatement("SELECT * FROM Viesti;");
+            
+            ResultSet rs = getter.executeQuery();
+            
+            
+            rs.close();
+            getter.close();
+            conn.close();
+            
+            
+        } catch (SQLException e) {
+            System.out.println("Problem saving message: " + e);
+        }
+        
+        return a;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public List findAllByUsername(String username) {
@@ -73,9 +94,19 @@ public class ViestiDao implements Dao {
             
             saver.setString(0, v.getOtsikko());
             saver.setString(1, v.getSisalto());
-            // CONVERT THIS TO USE LONG INSTEAD OF DATE
-            //saver.setDate(2, v.getLuomisaika());
+            saver.setLong(2, v.getLuomisaika());
+            saver.setString(3, v.getKuvanURL());
+            saver.setString(4, v.getLuoja());
+            saver.setInt(5, v.getKeskustelu_id());
+            saver.setInt(6, v.getKayttajaId());
+            
+            saver.executeUpdate();
+            
+            saver.close();
+            conn.close();
 
+
+            return true;
         } catch (Exception e) {
 
         }
