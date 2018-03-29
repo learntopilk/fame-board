@@ -19,7 +19,7 @@ public class TykkaysDao implements Dao {
     }
 
     @Override
-    public Object saveOrUpdate(Object object) throws SQLException {
+    public Boolean saveOrUpdate(Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

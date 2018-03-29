@@ -20,13 +20,13 @@ public class ViestiDao implements Dao {
                     + " otsikko varchar(160),"
                     + " sisalto varchar(3000), "
                     // CHANGE THIS: Long instead of date
-                    + " luomisaika date, "
+                    + " luomisaika bigint, "
                     + " url_kuva varchar(300), "
                     + " kayttajanNimi varchar(40)"
                     + " keskustelu_id integer, "
                     + " kayttaja_id integer,"
                     + " FOREIGN KEY(keskustelu_id) REFERENCES Keskustelu(id),"
-                    + " FOREIGN KEY(kayttaja_id) REFERENCES Kayttaja(id)");
+                    + " FOREIGN KEY(kayttaja_id) REFERENCES Kayttaja(id))");
 
             tableCreator.executeUpdate();
             tableCreator.close();

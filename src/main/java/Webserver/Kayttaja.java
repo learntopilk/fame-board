@@ -10,5 +10,22 @@ package Webserver;
  * @author Jonse
  */
 public class Kayttaja {
+    String kayttajanimi;
+    String salasana;
+    public Kayttaja(String kayt, String sal) {
+        this.kayttajanimi = kayt;
+        this.salasana = sal;
+    }
     
+    public String getKayttajanimi(){
+        return this.kayttajanimi;
+    }
+    
+    public String getSalasana(){
+        return this.salasana;
+    }
+    
+    public void setSalasana(String s){
+        this.salasana = s;
+    }
 }
