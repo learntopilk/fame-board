@@ -18,7 +18,7 @@ public class Viesti {
         this.sisalto = sisalto;
         this.otsikko = otsikko;
         luomisaika = System.currentTimeMillis();
-        
+
         this.luoja = "Unknown";
         this.keskustelu_id = 1;
         this.kayttaja_id = 1;
@@ -44,6 +44,14 @@ public class Viesti {
         this.id = id;
     }
 
+    public Viesti(String otsikko, String sisalto, int id, long time) {
+        this.otsikko = otsikko;
+        this.sisalto = sisalto;
+        //this.kuvanURL = kuvanURL;
+        this.id = id;
+        this.luomisaika = time;
+    }
+
     public String getSisalto() {
         return this.sisalto;
     }
@@ -59,14 +67,15 @@ public class Viesti {
     public long getLuomisaika() {
         return this.luomisaika;
     }
-    
+
     public String getLuoja() {
         return this.luoja;
     }
+
     public int getKeskustelu_id() {
         return this.keskustelu_id;
     }
-    
+
     public int getKayttajaId() {
         return this.kayttaja_id;
     }
@@ -86,15 +95,15 @@ public class Viesti {
     public void setKuvanURL(String URL) {
         this.kuvanURL = URL;
     }
-    
+
     public void setLuoja(String luoja) {
         this.luoja = luoja;
     }
-    
+
     public void setKeskustelu_id(int id) {
         this.keskustelu_id = id;
     }
-    
+
     public void setKayttajaId(int id) {
         this.kayttaja_id = id;
     }

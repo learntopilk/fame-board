@@ -34,6 +34,10 @@ public class KayttajaDao implements Dao {
     public Kayttaja findOne(Object key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public Kayttaja findOne(String s) throws SQLException {
+        return null;
+    }
 
     @Override
     public List findAll() throws SQLException {

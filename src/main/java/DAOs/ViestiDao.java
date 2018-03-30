@@ -43,27 +43,59 @@ public class ViestiDao implements Dao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public List findAllByKeskustelu(int keskusteluId) {
+        List<Viesti> viestit = new ArrayList<>();
+        try {
+            Connection conn = getConnection();
+            PreparedStatement getter = conn.prepareStatement("SELECT * FROM Viesti WHERE keskustelu_id = ?");
+            getter.setInt(0, keskusteluId);
+
+            ResultSet rs = getter.executeQuery();
+
+            // Viesti(String otsikko, String sisalto, int id, long time)
+            if (rs.next()) {
+                do {
+                    Viesti v = new Viesti(rs.getString("otsikko"), rs.getString("sisalto"), rs.getInt("id"), rs.getLong("luomisaika"));
+                    String url = rs.getString("url_kuva");
+                    if (url.length() > 0) {
+                        v.setKuvanURL(url);
+                    }
+                    v.setKeskustelu_id(keskusteluId);
+                    v.setLuoja(rs.getString("kayttajanNimi"));
+                    v.setKayttajaId(rs.getInt("kayttaja_id"));
+
+                    viestit.add(v);
+
+                } while (rs.next());
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Something went wrong in findAllByKeskustelu: " + e);
+        }
+
+        return viestit;
+    }
+
     @Override
     public List findAll() throws SQLException {
         List<Viesti> a = new ArrayList<>();
-        
+
         try {
             Connection conn = getConnection();
-            
+
             PreparedStatement getter = conn.prepareStatement("SELECT * FROM Viesti;");
-            
+
             ResultSet rs = getter.executeQuery();
-            
-            
+
             rs.close();
             getter.close();
             conn.close();
-            
-            
+
         } catch (SQLException e) {
             System.out.println("Problem saving message: " + e);
         }
-        
+
         return a;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -91,7 +123,7 @@ public class ViestiDao implements Dao {
                     + "keskustelu_id,"
                     + "kayttaja_id) "
                     + "VALUES(?,?,?,?,?,?,?)");
-            
+
             saver.setString(0, v.getOtsikko());
             saver.setString(1, v.getSisalto());
             saver.setLong(2, v.getLuomisaika());
@@ -99,12 +131,11 @@ public class ViestiDao implements Dao {
             saver.setString(4, v.getLuoja());
             saver.setInt(5, v.getKeskustelu_id());
             saver.setInt(6, v.getKayttajaId());
-            
+
             saver.executeUpdate();
-            
+
             saver.close();
             conn.close();
-
 
             return true;
         } catch (Exception e) {
