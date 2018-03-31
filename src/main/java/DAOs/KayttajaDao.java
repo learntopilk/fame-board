@@ -36,7 +36,31 @@ public class KayttajaDao implements Dao {
     }
     
     public Kayttaja findOne(String s) throws SQLException {
-        return null;
+            Kayttaja k;
+        try {
+            Connection conn = getConnection();
+            PreparedStatement finder = conn.prepareStatement("SELECT * FROM Kayttaja WHERE kayttajatunnus=?");
+            finder.setString(0, s);
+            
+            ResultSet rs = finder.executeQuery();
+            
+            if (rs.next()) {
+                k = new Kayttaja(s, rs.getString("salasana"));
+                k.setLuomisaika(rs.getLong("luomisaika"));
+            } else {
+                k = null;
+            }
+            
+            
+            rs.close();
+            finder.close();
+            conn.close();
+                    
+        } catch (SQLException e) {
+            System.out.println("Exception in findOne in KayttajaDao.java: " + e);
+            k = null;
+        }
+        return k;
     }
 
     @Override

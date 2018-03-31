@@ -12,6 +12,7 @@ package Webserver;
 public class Kayttaja {
     String kayttajanimi;
     String salasana;
+    long luomisaika;
     public Kayttaja(String kayt, String sal) {
         this.kayttajanimi = kayt;
         this.salasana = sal;
@@ -25,7 +26,14 @@ public class Kayttaja {
         return this.salasana;
     }
     
+    public long getLuomisaika(){
+        return this.luomisaika;
+    }
+    
     public void setSalasana(String s){
         this.salasana = s;
+    }
+    public void setLuomisaika(long l) {
+        this.luomisaika = l;
     }
 }
