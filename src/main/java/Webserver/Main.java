@@ -7,6 +7,8 @@ import spark.*;
 import spark.Spark;
 import spark.Session;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import com.lambdaworks.crypto.SCrypt.*;
+import com.lambdaworks.crypto.SCryptUtil.*;
 //import java.io.File;
 
 
@@ -27,6 +29,22 @@ public class Main {
         /**
          * R E I T I T
          */
+        //Kirjautuminen
+        Spark.post("/signin", (req,res) -> {
+           boolean signedIn = false;
+           if(signedIn) {
+               req.session(true);
+               req.session().attribute("user", "1");
+           }
+           res.redirect("/viestit");
+           return " ";
+        });
+        
+        Spark.post("/signout", (req, res) -> {
+            req.session(false);
+            res.redirect("/");
+            return " ";
+        });
         
         Spark.post("/viesti", (req, res) -> {
             String ots = req.queryParams("header");
@@ -40,6 +58,7 @@ public class Main {
         return " ";
         });
         
+        // Kaikkien viestien listaus
         Spark.get("/viestit", (req, res) -> {
         HashMap map = new HashMap<>();
         
