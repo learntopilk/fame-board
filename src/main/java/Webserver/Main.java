@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.*;
 import spark.*;
 import spark.Spark;
+import spark.Session;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 //import java.io.File;
 
@@ -31,7 +32,9 @@ public class Main {
             String ots = req.queryParams("header");
             String sis = req.queryParams("content");
             
-            v.saveOrUpdate(new Viesti(ots, sis));
+            if (!v.saveOrUpdate(new Viesti(ots, sis))) {
+                return "<h4>Something went wrong when you were trying to save your message!</h4>";
+            }
         
         res.redirect("/viestit");
         return " ";
@@ -43,7 +46,7 @@ public class Main {
         map.put("messages", v.findAll());
         return new ModelAndView(map, "allmessages");
         }, new ThymeleafTemplateEngine());
-
+        
         // "Catch-all" -reitti
         Spark.get("*", (req, res) -> {
             HashMap map = new HashMap<>();

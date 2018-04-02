@@ -19,6 +19,7 @@ public class Viesti {
         this.otsikko = otsikko;
         luomisaika = System.currentTimeMillis();
 
+        this.kuvanURL = null;
         this.luoja = "Unknown";
         this.keskustelu_id = 1;
         this.kayttaja_id = 1;

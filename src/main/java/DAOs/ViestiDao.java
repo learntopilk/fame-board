@@ -20,10 +20,10 @@ public class ViestiDao implements Dao {
                     + " otsikko varchar(160),"
                     + " sisalto varchar(3000), "
                     // CHANGE THIS: Long instead of date
-                    + " luomisaika bigint, "
+                    + " luomisaika bigint,"
                     + " url_kuva varchar(300), "
-                    + " kayttajanNimi varchar(40)"
-                    + " keskustelu_id integer, "
+                    + " kayttajanNimi varchar(40),"
+                    + " keskustelu_id integer,"
                     + " kayttaja_id integer,"
                     + " FOREIGN KEY(keskustelu_id) REFERENCES Keskustelu(id),"
                     + " FOREIGN KEY(kayttaja_id) REFERENCES Kayttaja(id))");
@@ -87,6 +87,12 @@ public class ViestiDao implements Dao {
             PreparedStatement getter = conn.prepareStatement("SELECT * FROM Viesti;");
 
             ResultSet rs = getter.executeQuery();
+            
+            while (rs.next()) {
+                String ots = rs.getString("otsikko");
+                String sis = rs.getString("sisalto");
+                a.add(new Viesti(ots, sis));
+            }
 
             rs.close();
             getter.close();
@@ -124,24 +130,28 @@ public class ViestiDao implements Dao {
                     + "kayttaja_id) "
                     + "VALUES(?,?,?,?,?,?,?)");
 
-            saver.setString(0, v.getOtsikko());
-            saver.setString(1, v.getSisalto());
-            saver.setLong(2, v.getLuomisaika());
-            saver.setString(3, v.getKuvanURL());
-            saver.setString(4, v.getLuoja());
-            saver.setInt(5, v.getKeskustelu_id());
-            saver.setInt(6, v.getKayttajaId());
+            saver.setString(1, v.getOtsikko());
+            saver.setString(2, v.getSisalto());
+            saver.setLong(3, v.getLuomisaika());
+            saver.setString(4, v.getKuvanURL());
+            
+            saver.setString(5, v.getLuoja());
+            saver.setInt(6, v.getKeskustelu_id());
+            saver.setInt(7, v.getKayttajaId());
 
             saver.executeUpdate();
 
             saver.close();
             conn.close();
-
+            
+            System.out.println("Saved message with title " + v.getOtsikko());
             return true;
+            
         } catch (Exception e) {
-
+            System.out.println("Problem in saveOrUpdate in ViestiDao.java: " + e);
+            return false;
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
