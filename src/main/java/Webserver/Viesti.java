@@ -13,6 +13,7 @@ public class Viesti {
     private String kuvanURL;
     private String luoja;
     private int kayttaja_id;
+    private int tykkayksia;
 
     public Viesti(String otsikko, String sisalto) {
         this.sisalto = sisalto;
@@ -80,6 +81,10 @@ public class Viesti {
     public int getKayttajaId() {
         return this.kayttaja_id;
     }
+    
+    public int getTykkaystenMaara() {
+        return this.tykkayksia;
+    }
 
     public void setSisalto(String sis) {
         this.sisalto = sis;
@@ -107,6 +112,18 @@ public class Viesti {
 
     public void setKayttajaId(int id) {
         this.kayttaja_id = id;
+    }
+    
+    public void setTykkaystenMaara(int t) {
+        this.tykkayksia = t;
+    }
+    
+    public void tykkaa() {
+        this.tykkayksia++;
+    }
+    
+    public void epatykkaa() {
+        this.tykkayksia--;
     }
 
 }
