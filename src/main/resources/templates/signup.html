@@ -1,0 +1,40 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Signup to Fameboard</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <div>
+            <a href="/viestit">Viestit</a>
+            <a href="/login">Kirjaudu sisään</a>
+            <a href="/signup">Rekisteröidy</a>
+            
+            
+        </div>
+        
+        
+        <h1>Fame Board Signup</h1>
+        <h3>Alaotsikko</h3>
+        
+        <h2>Kirjautu sisään! jee!</h2>
+        
+        
+        
+        
+        
+        <div class="message-entry">
+            
+            <form method="POST" action="/signup">
+                <input type="text" name="username" placeholder="katyjatunus" required/></input>
+                <input type="text" name="pwd" placeholder="slasana" required/></input>
+                <input type="submit" name="submit" value="SIGN UP PELE"></input>
+                
+            </form>
+            
+        </div>
+        
+    </body>
+</html>

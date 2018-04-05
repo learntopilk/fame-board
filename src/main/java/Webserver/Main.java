@@ -42,10 +42,12 @@ public class Main {
         
         Spark.post("/signout", (req, res) -> {
             req.session(false);
+            //delete(req.session());
             res.redirect("/");
             return " ";
         });
         
+       
         Spark.post("/viesti", (req, res) -> {
             String ots = req.queryParams("header");
             String sis = req.queryParams("content");
@@ -65,6 +67,22 @@ public class Main {
         map.put("messages", v.findAll());
         return new ModelAndView(map, "allmessages");
         }, new ThymeleafTemplateEngine());
+        
+        
+        Spark.get("/signup", (req,res) -> {
+        HashMap map = new HashMap<>();
+        
+        // TODO: FIX THIS
+            if (req.session() != null) {
+                
+            }
+        return new ModelAndView(map, "signup");
+        }, new ThymeleafTemplateEngine());
+        
+        Spark.post("/signup", (req,res) -> {
+            //TODO: create new user
+            return " ";
+        });
         
         // "Catch-all" -reitti
         Spark.get("*", (req, res) -> {
