@@ -7,9 +7,10 @@ import spark.*;
 import spark.Spark;
 import spark.Session;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import com.lambdaworks.crypto.SCrypt.*;
-import com.lambdaworks.crypto.SCryptUtil.*;
+//import com.lambdaworks.crypto.SCrypt.*;
+//import com.lambdaworks.crypto.SCryptUtil.*;
 //import java.io.File;
+import Webserver.PwdProcess.*;
 
 
 public class Main {
@@ -31,6 +32,8 @@ public class Main {
          */
         //Kirjautuminen
         Spark.post("/signin", (req,res) -> {
+            String testableName = req.queryParams("username");
+            String testablePwd = req.queryParams("password");
            boolean signedIn = false;
            if(signedIn) {
                req.session(true);
