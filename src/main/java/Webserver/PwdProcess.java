@@ -9,7 +9,7 @@ import com.lambdaworks.crypto.SCryptUtil;
  */
 public class PwdProcess {
     public static String hash(String pwd){
-        String s = SCryptUtil.scrypt(pwd, 8000, 4, 2);
+        String s = SCryptUtil.scrypt(pwd, 32, 4, 2);
         return s;
     }
 }
