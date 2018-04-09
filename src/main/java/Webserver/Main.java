@@ -11,13 +11,15 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 //import com.lambdaworks.crypto.SCryptUtil.*;
 //import java.io.File;
 import Webserver.PwdProcess.*;
+import com.lambdaworks.crypto.SCryptUtil;
 
 public class Main {
 
     public static void main(String[] args) throws SQLException {
         // Store for test hash
         String thisHash;
-        
+        List<String> l = new ArrayList<>();
+
         // Tämä asettaa herokun portin ympäristömuuttujan määräämäksi,
         // jos ympäristömuuttuja on olemassa. Herokua varten tärkeä!
         if (System.getenv("PORT") != null) {
@@ -32,15 +34,27 @@ public class Main {
          * R E I T I T
          */
         //Kirjautuminen
+        Spark.get("/login", (req, res) -> {
+            HashMap map = new HashMap();
+            return new ModelAndView(map, "signin");
+        }, new ThymeleafTemplateEngine());
+
         Spark.post("/signin", (req, res) -> {
             String testableName = req.queryParams("username");
             String testablePwd = req.queryParams("password");
             System.out.println("user: " + testableName + ", pwd: " + testablePwd);
 
             String hashedPwd = PwdProcess.hash(testablePwd);
-            System.out.println(hashedPwd);
+            //System.out.println(hashedPwd);
 
             boolean signedIn = false;
+            if (SCryptUtil.check(testablePwd, l.get(l.size() - 1))) {
+                System.out.println("Sign-in successful!");
+                signedIn = true;
+            } else {
+                System.out.println("Sign-in failed");
+            }
+
             if (signedIn) {
                 req.session(true);
                 req.session().attribute("user", "1");
@@ -95,8 +109,10 @@ public class Main {
             System.out.println("user: " + testableName + ", pwd: " + testablePwd);
 
             String hashedPwd = PwdProcess.hash(testablePwd);
+            l.add(hashedPwd);
             //thisHash = hashedPwd;
             System.out.println(hashedPwd);
+            res.redirect("/viestit");
 
             return " ";
         });
@@ -105,6 +121,14 @@ public class Main {
         Spark.get("*", (req, res) -> {
             HashMap map = new HashMap<>();
             //map.put("raaka_aineet", raakaaineet);
+            System.out.println(req.session().attributes());
+            Set<String> attr = req.session().attributes();
+            /*
+            if (req.session().attribute("user")) {
+                System.out.println("user attribute for session: " + req.session().attribute("user"));
+            } else {
+                System.out.println("No request session username found.");
+            }*/
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
