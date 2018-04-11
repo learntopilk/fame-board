@@ -10,30 +10,48 @@ package Webserver;
  * @author Jonse
  */
 public class Kayttaja {
+
+    int id;
     String kayttajanimi;
     String salasana;
     long luomisaika;
+
     public Kayttaja(String kayt, String sal) {
         this.kayttajanimi = kayt;
         this.salasana = sal;
     }
-    
-    public String getKayttajanimi(){
+
+    public Kayttaja(String kayt, String sal, int id) {
+        this.kayttajanimi = kayt;
+        this.salasana = sal;
+        this.id = id;
+    }
+
+    public String getKayttajanimi() {
         return this.kayttajanimi;
     }
-    
-    public String getSalasana(){
+
+    public String getSalasana() {
         return this.salasana;
     }
-    
-    public long getLuomisaika(){
+
+    public long getLuomisaika() {
         return this.luomisaika;
     }
-    
-    public void setSalasana(String s){
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setSalasana(String s) {
         this.salasana = s;
     }
+
     public void setLuomisaika(long l) {
         this.luomisaika = l;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

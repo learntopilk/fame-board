@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         // Store for test hash
-        String thisHash;
+
         List<String> l = new ArrayList<>();
 
         // Tämä asettaa herokun portin ympäristömuuttujan määräämäksi,
@@ -27,6 +27,7 @@ public class Main {
         }
 
         ViestiDao v = new ViestiDao();
+        KayttajaDao k = new KayttajaDao();
 
         System.out.println("Server starting.");
 
@@ -40,25 +41,28 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         Spark.post("/signin", (req, res) -> {
-            String testableName = req.queryParams("username");
-            String testablePwd = req.queryParams("password");
-            System.out.println("user: " + testableName + ", pwd: " + testablePwd);
+            String name = req.queryParams("username");
+            String pwd = req.queryParams("password");
+            //System.out.println("user: " + testableName + ", pwd: " + testablePwd);
 
-            String hashedPwd = PwdProcess.hash(testablePwd);
+            //String hashedPwd = PwdProcess.hash(testablePwd);
             //System.out.println(hashedPwd);
+            Kayttaja kayt = k.findOne(name);
 
-            boolean signedIn = false;
-            if (SCryptUtil.check(testablePwd, l.get(l.size() - 1))) {
+            if (kayt == null) {
+                return ("<h4>Käyttäjänimi tai salasana on väärä! <br/></h4><a href=\"/\">Etusivulle</a>");
+            }
+
+            if (SCryptUtil.check(pwd, kayt.getSalasana())) {
                 System.out.println("Sign-in successful!");
-                signedIn = true;
+                req.session(true);
+                req.session().attribute("user", kayt.getKayttajanimi());
+
             } else {
                 System.out.println("Sign-in failed");
+                return ("<h4>Salasana lienee väärä! <br/></h4><a href=\"/\">Etusivulle</a>");
             }
 
-            if (signedIn) {
-                req.session(true);
-                req.session().attribute("user", "1");
-            }
             res.redirect("/viestit");
             return " ";
         });
@@ -82,6 +86,8 @@ public class Main {
             return " ";
         });
 
+        //
+        //
         // Kaikkien viestien listaus
         Spark.get("/viestit", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -90,6 +96,9 @@ public class Main {
             return new ModelAndView(map, "allmessages");
         }, new ThymeleafTemplateEngine());
 
+        //
+        //
+        // Käyttäjän luominen
         Spark.get("/signup", (req, res) -> {
             HashMap map = new HashMap<>();
 
@@ -101,22 +110,35 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         Spark.post("/signup", (req, res) -> {
-            //TODO: create new user
 
-            // TODO
-            String testableName = req.queryParams("username");
-            String testablePwd = req.queryParams("password");
-            System.out.println("user: " + testableName + ", pwd: " + testablePwd);
+            String Name = req.queryParams("username");
+            String Pwd = req.queryParams("password");
+            System.out.println("user: " + Name + ", pwd: " + Pwd);
 
-            String hashedPwd = PwdProcess.hash(testablePwd);
-            l.add(hashedPwd);
-            //thisHash = hashedPwd;
+            //Onko käyttäjänimi uniikki?
+            if (k.findOne(Name) != null) {
+                return ("<h4>Käyttäjänimi on jo olemassa! <br/>Kokeile toista käyttäjänimeä.</h4><a href=\"/\">Etusivulle</a>");
+                //res.redirect("/signup");
+            }
+
+            String hashedPwd = PwdProcess.hash(Pwd);
+            Kayttaja kay = new Kayttaja(Name, hashedPwd);
+            // Onnistuuko tallennus?
+            if (k.saveOrUpdate(kay)) {
+                System.out.println("Added user: " + kay.getKayttajanimi());
+                req.session(true);
+                req.session().attribute("user", Name);
+            } else {
+                return ("<h4>Käyttäjän luominen ei onnistunut! <br/>Ota yhteyttä järjestelmänvalvojaan.</h4><a href=\"/\">Etusivulle</a>");
+            }
+
             System.out.println(hashedPwd);
             res.redirect("/viestit");
 
             return " ";
         });
 
+        //
         // "Catch-all" -reitti
         Spark.get("*", (req, res) -> {
             HashMap map = new HashMap<>();

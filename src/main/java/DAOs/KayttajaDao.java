@@ -18,7 +18,7 @@ public class KayttajaDao implements Dao {
             PreparedStatement init = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Kayttaja("
                     + "id SERIAL PRIMARY KEY,"
                     + "kayttajatunnus varchar(30),"
-                    + "salasana varchar(50),"
+                    + "salasana varchar(60),"
                     + "luomisaika bigint)");
             
             init.executeUpdate();
@@ -40,7 +40,7 @@ public class KayttajaDao implements Dao {
         try {
             Connection conn = getConnection();
             PreparedStatement finder = conn.prepareStatement("SELECT * FROM Kayttaja WHERE kayttajatunnus=?");
-            finder.setString(0, s);
+            finder.setString(1, s);
             
             ResultSet rs = finder.executeQuery();
             
@@ -78,9 +78,9 @@ public class KayttajaDao implements Dao {
             PreparedStatement saver = conn.prepareStatement("INSERT INTO Kayttaja(kayttajatunnus, salasana, luomisaika) "
                     + "VALUES (?,?,?)");
             
-            saver.setString(0, kayt.getKayttajanimi());
-            saver.setString(1, kayt.getSalasana());
-            saver.setLong(2, System.currentTimeMillis());
+            saver.setString(1, kayt.getKayttajanimi());
+            saver.setString(2, kayt.getSalasana());
+            saver.setLong(3, System.currentTimeMillis());
             
             saver.execute();
             
