@@ -13,7 +13,12 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import Webserver.PwdProcess.*;
 import com.lambdaworks.crypto.SCryptUtil;
 
+import Controllers.LoginController;
+
 public class Main {
+    
+    public static ViestiDao v;
+    public static KayttajaDao k;
 
     public static void main(String[] args) throws SQLException {
         // Store for test hash
@@ -26,8 +31,8 @@ public class Main {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
 
-        ViestiDao v = new ViestiDao();
-        KayttajaDao k = new KayttajaDao();
+        v = new ViestiDao();
+        k = new KayttajaDao();
 
         System.out.println("Server starting.");
 
@@ -43,27 +48,13 @@ public class Main {
         Spark.post("/signin", (req, res) -> {
             String name = req.queryParams("username");
             String pwd = req.queryParams("password");
+            Kayttaja kayt = new Kayttaja(name, pwd);
             //System.out.println("user: " + testableName + ", pwd: " + testablePwd);
 
-            //String hashedPwd = PwdProcess.hash(testablePwd);
-            //System.out.println(hashedPwd);
-            Kayttaja kayt = k.findOne(name);
-
-            if (kayt == null) {
-                return ("<h4>Käyttäjänimi tai salasana on väärä! <br/></h4><a href=\"/\">Etusivulle</a>");
-            }
-
-            if (SCryptUtil.check(pwd, kayt.getSalasana())) {
-                System.out.println("Sign-in successful!");
-                req.session(true);
-                req.session().attribute("user", kayt.getKayttajanimi());
-
-            } else {
-                System.out.println("Sign-in failed");
-                return ("<h4>Salasana lienee väärä! <br/></h4><a href=\"/\">Etusivulle</a>");
-            }
-
-            res.redirect("/viestit");
+            LoginController.HandleLoginPost(req, res, kayt);
+            
+            // TODO: Eliminate these
+            //res.redirect("/viestit");
             return " ";
         });
 
@@ -75,9 +66,15 @@ public class Main {
         });
 
         Spark.post("/viesti", (req, res) -> {
+            
+            // TODO: identity check
+            
+            //req.session().
+                    
+                    
             String ots = req.queryParams("header");
             String sis = req.queryParams("content");
-
+            
             if (!v.saveOrUpdate(new Viesti(ots, sis))) {
                 return "<h4>Something went wrong when you were trying to save your message!</h4>";
             }
@@ -91,6 +88,13 @@ public class Main {
         // Kaikkien viestien listaus
         Spark.get("/viestit", (req, res) -> {
             HashMap map = new HashMap<>();
+            
+            if (req.session().attribute("fresh") == "true") {
+                req.session().removeAttribute("fresh");
+                String name = req.session().attribute("currentUser");
+                String message = "Welcome, " + name + "!";
+                map.put("welcome", message);
+            }
 
             map.put("messages", v.findAll());
             return new ModelAndView(map, "allmessages");
