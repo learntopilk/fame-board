@@ -51,17 +51,21 @@ public class Main {
             Kayttaja kayt = new Kayttaja(name, pwd);
             //System.out.println("user: " + testableName + ", pwd: " + testablePwd);
 
-            LoginController.HandleLoginPost(req, res, kayt);
+            LoginController.handleLoginPost(req, res, kayt);
             
             // TODO: Eliminate these
             //res.redirect("/viestit");
             return " ";
         });
 
-        Spark.post("/signout", (req, res) -> {
-            req.session(false);
+        // HACK
+        Spark.get("/signout", (req, res) -> {
+            //req.session(false);
+            System.out.println("Signing out");
+            req.session().removeAttribute("currentUser");
+            LoginController.handleLogoutPost(req, res);
             //delete(req.session());
-            res.redirect("/");
+            //res.redirect("/");
             return " ";
         });
 
@@ -146,15 +150,13 @@ public class Main {
         // "Catch-all" -reitti
         Spark.get("*", (req, res) -> {
             HashMap map = new HashMap<>();
-            //map.put("raaka_aineet", raakaaineet);
             System.out.println(req.session().attributes());
-            Set<String> attr = req.session().attributes();
-            /*
-            if (req.session().attribute("user")) {
-                System.out.println("user attribute for session: " + req.session().attribute("user"));
-            } else {
-                System.out.println("No request session username found.");
+            System.out.println("" + req.session().attribute("currentUser"));
+            /*if (req.session().attribute("currentUser")) {
+                System.out.println("User session active: " + req.session().attribute("currentUser"));
             }*/
+            Set<String> attr = req.session().attributes();
+
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
