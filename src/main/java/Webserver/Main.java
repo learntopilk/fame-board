@@ -14,6 +14,7 @@ import Webserver.PwdProcess.*;
 import com.lambdaworks.crypto.SCryptUtil;
 
 import Controllers.LoginController;
+import Controllers.ToolbarController;
 
 public class Main {
 
@@ -60,7 +61,6 @@ public class Main {
 
         // HACK
         Spark.get("/signout", (req, res) -> {
-            //req.session(false);
             System.out.println("Signing out");
             req.session().removeAttribute("currentUser");
             LoginController.handleLogoutPost(req, res);
@@ -178,7 +178,9 @@ public class Main {
             /*if (req.session().attribute("currentUser")) {
                 System.out.println("User session active: " + req.session().attribute("currentUser"));
             }*/
-            Set<String> attr = req.session().attributes();
+            //Set<String> attr = req.session().attributes();
+
+            map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
