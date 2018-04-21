@@ -35,7 +35,7 @@ public class Main {
         v = new ViestiDao();
         k = new KayttajaDao();
         //RESET
-        k.reset();
+        //k.reset();
         
         System.out.println("Server starting.");
 
