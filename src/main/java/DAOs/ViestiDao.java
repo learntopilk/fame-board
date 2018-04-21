@@ -15,7 +15,8 @@ public class ViestiDao implements Dao {
         try {
             Connection conn = getConnection();
 
-            PreparedStatement tableCreator = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Viesti("
+            //PreparedStatement tableCreator = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Viesti("
+            PreparedStatement tableCreator = conn.prepareStatement("CREATE TABLE Viesti("
                     + " id SERIAL PRIMARY KEY, "
                     + " otsikko varchar(160),"
                     + " sisalto varchar(3000), "
