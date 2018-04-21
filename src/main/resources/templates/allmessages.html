@@ -6,12 +6,12 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Uuden reseptin luominen</title>
+        <title>Kaikki viestit</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>
+        <div id="toolbar" th:text="${toolbar}">
             <h3 th:text="${welcome}"></h3>
             <a href="/">Etusivu</a>
 
@@ -21,6 +21,7 @@ and open the template in the editor.
             <li th:each="viesti : ${messages}" style="list-style-type: none;">
             
                 <H4 th:text="${viesti.otsikko}"></h4>
+                <span th:text="${viesti.luoja}"></span>
                 <p th:text="${viesti.sisalto}"></p>
 
             
@@ -32,8 +33,8 @@ and open the template in the editor.
 
     <br>
     <form method="POST" action="viesti">
-        <input type="text" name="header" placeholder="Otsikko" required></input>
-        <input type="text" name="content" placeholder="Viesti tähän"></input>
+        <input type="text" name="header" placeholder="Otsikko" th:value="${edelOts}" required></input>
+        <input type="text" name="content" placeholder="Viesti tähän" th:value="${edelSis}"></input>
 
         <input type="submit" name="end" value="Valmis"></input>
     </form>

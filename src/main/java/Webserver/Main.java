@@ -16,7 +16,7 @@ import com.lambdaworks.crypto.SCryptUtil;
 import Controllers.LoginController;
 
 public class Main {
-    
+
     public static ViestiDao v;
     public static KayttajaDao k;
 
@@ -52,7 +52,7 @@ public class Main {
             //System.out.println("user: " + testableName + ", pwd: " + testablePwd);
 
             LoginController.handleLoginPost(req, res, kayt);
-            
+
             // TODO: Eliminate these
             //res.redirect("/viestit");
             return " ";
@@ -70,21 +70,31 @@ public class Main {
         });
 
         Spark.post("/viesti", (req, res) -> {
-            
-            // TODO: identity check
-            
-            //req.session().
-                    
-                    
+
             String ots = req.queryParams("header");
             String sis = req.queryParams("content");
-            
-            if (!v.saveOrUpdate(new Viesti(ots, sis))) {
-                return "<h4>Something went wrong when you were trying to save your message!</h4>";
-            }
 
-            res.redirect("/viestit");
+            // TODO: identity check AND enable username saving with messages.
+            if (LoginController.userIsLogged(req)) {
+                // Saving the message
+                Viesti viesti = new Viesti(ots, sis);
+                viesti.setLuoja(req.session().attribute("currentUser"));
+                if (!v.saveOrUpdate(viesti)) {
+                    return "<h4>Something went wrong when you were trying to save your message!</h4>";
+                }
+                // ja ei kun katsomaan viestejä!
+                res.redirect("/viestit");
+
+            } else {
+                /* Jos ei kirjautunut sisään, ohjataan kirjautumaan ja tallennetaan kirjoitettu viesti
+                    sessioattribuutiksi, jotta se voidaan laittaa viestinkirjoitussivulle, kun on kirjauduttu sisään
+                 */
+                req.session().attribute("ots", ots);
+                req.session().attribute("sis", sis);
+                res.redirect("/login");
+            }
             return " ";
+
         });
 
         //
@@ -92,12 +102,25 @@ public class Main {
         // Kaikkien viestien listaus
         Spark.get("/viestit", (req, res) -> {
             HashMap map = new HashMap<>();
-            
+
             if (req.session().attribute("fresh") == "true") {
                 req.session().removeAttribute("fresh");
                 String name = req.session().attribute("currentUser");
                 String message = "Welcome, " + name + "!";
                 map.put("welcome", message);
+            }
+
+            // If the user tried to post a message but was not logged in, we may have saved
+            // the message so they are spared the work
+            if (req.session().attribute("ots") != null) {
+                // This could also be made persistent across multiple reloads, but just after login for now
+                map.put("edelOts", req.session().attribute("ots"));
+                map.put("edelSis", req.session().attribute("sis"));
+
+                req.session().removeAttribute("ots");
+                req.session().removeAttribute("sis");
+            } else {
+
             }
 
             map.put("messages", v.findAll());

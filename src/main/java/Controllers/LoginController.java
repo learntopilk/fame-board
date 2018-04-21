@@ -35,13 +35,19 @@ public class LoginController {
     }
 
     public static boolean userIsLogged(Request req) {
-        return false;
+        if (req.session().attribute("loggedOut") == "true") {
+            return false;
+        } else if (req.session().attribute("currentUser") == null) {
+            return false;
+        }
+        return true;
     }
 
     public static Route handleLogoutPost(Request req, Response res) {
         System.out.println("Logging out user");
 
         req.session().removeAttribute("currentUser");
+        req.session().attribute("loggedOut", "true");
         System.out.println("user logged out.");
         req.session(false);
 

@@ -91,7 +91,10 @@ public class ViestiDao implements Dao {
             while (rs.next()) {
                 String ots = rs.getString("otsikko");
                 String sis = rs.getString("sisalto");
-                a.add(new Viesti(ots, sis));
+                String tek = rs.getString("kayttajanNimi");
+                Viesti v = new Viesti(ots, sis);
+                v.setLuoja(tek);
+                a.add(v);
             }
 
             rs.close();
