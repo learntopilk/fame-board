@@ -13,10 +13,6 @@ public class KayttajaDao implements Dao {
         try {
             Connection conn = getConnection();
 
-            PreparedStatement reset = conn.prepareStatement("DROP TABLE Viesti");
-            reset.executeUpdate();
-            reset.close();
-
             PreparedStatement init = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Kayttaja("
                     + "id SERIAL PRIMARY KEY,"
                     + "kayttajatunnus varchar(30),"
@@ -104,7 +100,7 @@ public class KayttajaDao implements Dao {
         try {
             Connection conn = getConnection();
 
-            PreparedStatement reset = conn.prepareStatement("DROP TABLE Viesti");
+            PreparedStatement reset = conn.prepareStatement("DROP TABLE Kayttaja");
             reset.executeUpdate();
             reset.close();
             conn.close();
