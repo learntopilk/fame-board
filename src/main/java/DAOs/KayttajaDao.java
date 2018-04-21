@@ -18,7 +18,7 @@ public class KayttajaDao implements Dao {
             PreparedStatement init = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Kayttaja("
                     + "id SERIAL PRIMARY KEY,"
                     + "kayttajatunnus varchar(30),"
-                    + "salasana varchar(60),"
+                    + "salasana varchar(100),"
                     + "luomisaika bigint)");
             
             init.executeUpdate();

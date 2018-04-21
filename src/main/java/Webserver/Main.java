@@ -152,6 +152,7 @@ public class Main {
                 //res.redirect("/signup");
             }
 
+            // CHANGE THIS IN THE DATABASE
             String hashedPwd = PwdProcess.hash(Pwd);
             Kayttaja kay = new Kayttaja(Name, hashedPwd);
             // Onnistuuko tallennus?
