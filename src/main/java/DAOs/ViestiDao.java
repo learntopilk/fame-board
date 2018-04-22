@@ -132,7 +132,7 @@ public class ViestiDao implements Dao {
                     + "kayttajanNimi,"
                    // + "keskustelu_id,"
                     + "kayttaja_id) "
-                    + "VALUES(?,?,?,?,?,?,?)");
+                    + "VALUES(?,?,?,?,?,?)");
 
             saver.setString(1, v.getOtsikko());
             saver.setString(2, v.getSisalto());
