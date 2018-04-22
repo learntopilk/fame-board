@@ -20,6 +20,7 @@ public class Main {
 
     public static ViestiDao v;
     public static KayttajaDao k;
+    public static KeskusteluDao kesk;
 
     public static void main(String[] args) throws SQLException {
         // Store for test hash
@@ -32,8 +33,10 @@ public class Main {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
 
-        v = new ViestiDao();
         k = new KayttajaDao();
+        kesk = new KeskusteluDao();
+        v = new ViestiDao();
+        
         //RESET
         //k.reset();
         
