@@ -36,7 +36,7 @@ public class ToolbarController {
         String front = "<span class=\"toolbar-link\"><a href=\"/\">Front page</a></span>";
         String messages = "<span class=\"toolbar-link\"><a href=\"/viestit\">All messages</a></span>";
         String signup  = "<span class=\"toolbar-link\"><a href=\"/signup\">Sign up</a></span>";
-        String signin  = "<span class=\"toolbar-link\"><a href=\"/signin\">Sign in</a></span>";
+        String signin  = "<span class=\"toolbar-link\"><a href=\"/login\">Sign in</a></span>";
         
         return front + messages + signup + signin;
     }

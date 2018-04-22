@@ -100,7 +100,7 @@ public class KayttajaDao implements Dao {
         try {
             Connection conn = getConnection();
 
-            PreparedStatement reset = conn.prepareStatement("DROP TABLE Kayttaja");
+            PreparedStatement reset = conn.prepareStatement("DROP TABLE Viesti"); // Change to kayttaja
             reset.executeUpdate();
             reset.close();
             conn.close();

@@ -20,12 +20,9 @@ public class Main {
 
     public static ViestiDao v;
     public static KayttajaDao k;
-    public static KeskusteluDao kesk;
+    //public static KeskusteluDao kesk;
 
     public static void main(String[] args) throws SQLException {
-        // Store for test hash
-
-        List<String> l = new ArrayList<>();
 
         // Tämä asettaa herokun portin ympäristömuuttujan määräämäksi,
         // jos ympäristömuuttuja on olemassa. Herokua varten tärkeä!
@@ -34,7 +31,7 @@ public class Main {
         }
 
         k = new KayttajaDao();
-        kesk = new KeskusteluDao();
+        //kesk = new KeskusteluDao();
         v = new ViestiDao();
         
         //RESET

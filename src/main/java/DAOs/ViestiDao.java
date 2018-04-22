@@ -24,9 +24,9 @@ public class ViestiDao implements Dao {
                     + " luomisaika bigint,"
                     + " url_kuva varchar(300), "
                     + " kayttajanNimi varchar(40),"
-                    + " keskustelu_id integer,"
+                    //+ " keskustelu_id integer,"
                     + " kayttaja_id integer,"
-                    + " FOREIGN KEY(keskustelu_id) REFERENCES Keskustelu(id),"
+                    //+ " FOREIGN KEY(keskustelu_id) REFERENCES Keskustelu(id),"
                     + " FOREIGN KEY(kayttaja_id) REFERENCES Kayttaja(id))");
 
             tableCreator.executeUpdate();
