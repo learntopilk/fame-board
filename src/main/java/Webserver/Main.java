@@ -31,7 +31,7 @@ public class Main {
         }
 
         k = new KayttajaDao();
-        k.reset(); // REsetting Viesti for now
+        //k.reset(); // REsetting Viesti for now
         //kesk = new KeskusteluDao();
         v = new ViestiDao();
         
@@ -127,6 +127,7 @@ public class Main {
             }
 
             map.put("messages", v.findAll());
+            map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
             return new ModelAndView(map, "allmessages");
         }, new ThymeleafTemplateEngine());
 

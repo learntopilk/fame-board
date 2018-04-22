@@ -141,7 +141,7 @@ public class ViestiDao implements Dao {
             
             saver.setString(5, v.getLuoja());
             //saver.setInt(6, v.getKeskustelu_id());
-            saver.setInt(6, v.getKayttajaId());
+            saver.setInt(6, v.getKayttajaId()); // would be 7th if we had a keskustelu to refer to
 
             saver.executeUpdate();
 
