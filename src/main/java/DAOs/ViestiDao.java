@@ -130,7 +130,7 @@ public class ViestiDao implements Dao {
                     + "luomisaika, "
                     + "url_kuva, "
                     + "kayttajanNimi,"
-                    + "keskustelu_id,"
+                   // + "keskustelu_id,"
                     + "kayttaja_id) "
                     + "VALUES(?,?,?,?,?,?,?)");
 
@@ -140,8 +140,8 @@ public class ViestiDao implements Dao {
             saver.setString(4, v.getKuvanURL());
             
             saver.setString(5, v.getLuoja());
-            saver.setInt(6, v.getKeskustelu_id());
-            saver.setInt(7, v.getKayttajaId());
+            //saver.setInt(6, v.getKeskustelu_id());
+            saver.setInt(6, v.getKayttajaId());
 
             saver.executeUpdate();
 
