@@ -18,7 +18,7 @@ public class KeskusteluDao implements Dao {
             PreparedStatement KeskusteluCreator = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Keskustelu("
                     + " id SERIAL PRIMARY KEY, "
                     + " otsikko varchar(160),"
-                    + "luomisaika bigint,"
+                    + " luomisaika bigint,"
                     + " kayttaja_id integer,"
                     + " FOREIGN KEY(kayttaja_id) REFERENCES Kayttaja(id))");
 

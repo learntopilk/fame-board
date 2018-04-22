@@ -18,6 +18,7 @@ public class LoginController {
         if (UserController.authenticate(kayt)) {
             System.out.println("Sign-in successfully: " + kayt.getKayttajanimi());
             req.session(true);
+            req.session().attribute("loggedOut", false);
             req.session().attribute("currentUser", kayt.getKayttajanimi());
             // Used for displaying welcoming message
             req.session().attribute("fresh", "true");
