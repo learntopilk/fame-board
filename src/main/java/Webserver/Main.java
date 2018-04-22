@@ -31,6 +31,7 @@ public class Main {
         }
 
         k = new KayttajaDao();
+        k.reset(); // REsetting Viesti for now
         //kesk = new KeskusteluDao();
         v = new ViestiDao();
         
