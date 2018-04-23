@@ -95,6 +95,7 @@ public class ViestiDao implements Dao {
                 String tek = rs.getString("kayttajanNimi");
                 Viesti v = new Viesti(ots, sis);
                 v.setLuoja(tek);
+                v.setPaiva(rs.getLong("luomisaika"));
                 a.add(v);
             }
 

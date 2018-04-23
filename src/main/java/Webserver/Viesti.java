@@ -14,6 +14,7 @@ public class Viesti {
     private String luoja;
     private int kayttaja_id;
     private int tykkayksia;
+    private Date paiva;
 
     public Viesti(String otsikko, String sisalto) {
         this.sisalto = sisalto;
@@ -116,6 +117,14 @@ public class Viesti {
     
     public void setTykkaystenMaara(int t) {
         this.tykkayksia = t;
+    }
+    
+    public void setPaiva(long paiv){
+        this.paiva = new Date(paiv);
+    }
+    
+    public Date getPaiva(){
+        return this.paiva;
     }
     
     public void tykkaa() {
