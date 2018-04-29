@@ -15,6 +15,7 @@ import com.lambdaworks.crypto.SCryptUtil;
 
 import Controllers.LoginController;
 import Controllers.ToolbarController;
+import static spark.Spark.staticFileLocation;
 
 public class Main {
 
@@ -39,6 +40,11 @@ public class Main {
         //k.reset();
         
         System.out.println("Server starting.");
+        
+        //WEBSOCKET TEST
+        staticFileLocation("/public");
+        
+        //webSocket("/echo", EchoWebSocket.class);
 
         /**
          * R E I T I T
@@ -48,7 +54,7 @@ public class Main {
             HashMap map = new HashMap();
             return new ModelAndView(map, "signin");
         }, new ThymeleafTemplateEngine());
-
+        
         Spark.post("/signin", (req, res) -> {
             String name = req.queryParams("username");
             String pwd = req.queryParams("password");

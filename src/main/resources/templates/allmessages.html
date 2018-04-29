@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Kaikki viestit</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style2.css">
     </head>
     <body>
         <h3 th:text="${welcome}"></h3>
@@ -19,12 +20,12 @@ and open the template in the editor.
         </div>
         <h2>Täällä näitä viestejä on!</h2>
         <ul style="list-style-type:none">
-            <li th:each="viesti : ${messages}" style="list-style-type: none;">
+            <li th:each="viesti : ${messages}" class="msg-cont" style="list-style-type: none;">
             
-                <H4 th:text="${viesti.otsikko}"></h4>
-                <span th:text="${viesti.luoja}"></span>
-                <span th:text="${viesti.paiva}"></span>
-                <p th:text="${viesti.sisalto}"></p>
+                <H4 class="msg-header" th:text="${viesti.otsikko}"></h4>
+                <span class="msg-creator" th:text="${viesti.luoja}"></span>
+                <span class="msg-date" th:text="${viesti.paiva}"></span>
+                <p class="msg-content" th:text="${viesti.sisalto}"></p>
 
             
         </li>
