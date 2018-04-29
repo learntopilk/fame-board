@@ -23,6 +23,7 @@ and open the template in the editor.
             <li th:each="viesti : ${messages}" class="msg-cont" style="list-style-type: none;">
             
                 <H4 class="msg-header" th:text="${viesti.otsikko}"></h4>
+                <img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${viesti.kuvanURL})}"/>
                 <span class="msg-creator" th:text="${viesti.luoja}"></span>
                 <span class="msg-date" th:text="${viesti.paiva}"></span>
                 <p class="msg-content" th:text="${viesti.sisalto}"></p>

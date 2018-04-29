@@ -58,9 +58,12 @@ public class ViestiDao implements Dao {
                 do {
                     Viesti v = new Viesti(rs.getString("otsikko"), rs.getString("sisalto"), rs.getInt("id"), rs.getLong("luomisaika"));
                     String url = rs.getString("url_kuva");
-                    if (url.length() > 0) {
+                    /*if (url.length() > 0 || url != null) {
                         v.setKuvanURL(url);
-                    }
+                    } else {
+                        v.setKuvanURL("./kekkonen.jpeg");
+                    }*/
+                    v.setKuvanURL("kekkonen.jpeg");
                     v.setKeskustelu_id(keskusteluId);
                     v.setLuoja(rs.getString("kayttajanNimi"));
                     v.setKayttajaId(rs.getInt("kayttaja_id"));
@@ -88,7 +91,7 @@ public class ViestiDao implements Dao {
             PreparedStatement getter = conn.prepareStatement("SELECT * FROM Viesti;");
 
             ResultSet rs = getter.executeQuery();
-            
+
             while (rs.next()) {
                 String ots = rs.getString("otsikko");
                 String sis = rs.getString("sisalto");
@@ -96,6 +99,12 @@ public class ViestiDao implements Dao {
                 Viesti v = new Viesti(ots, sis);
                 v.setLuoja(tek);
                 v.setPaiva(rs.getLong("luomisaika"));
+                /*if (url.length() > 0 || url != null) {
+                    v.setKuvanURL(url);
+                } else {
+                    v.setKuvanURL("./kekkonen.jpeg");
+                }*/
+                v.setKuvanURL("kekkonen.jpeg");
                 a.add(v);
             }
 
@@ -131,7 +140,7 @@ public class ViestiDao implements Dao {
                     + "luomisaika, "
                     + "url_kuva, "
                     + "kayttajanNimi,"
-                   // + "keskustelu_id,"
+                    // + "keskustelu_id,"
                     + "kayttaja_id) "
                     + "VALUES(?,?,?,?,?,?)");
 
@@ -139,7 +148,7 @@ public class ViestiDao implements Dao {
             saver.setString(2, v.getSisalto());
             saver.setLong(3, v.getLuomisaika());
             saver.setString(4, v.getKuvanURL());
-            
+
             saver.setString(5, v.getLuoja());
             //saver.setInt(6, v.getKeskustelu_id());
             saver.setInt(6, v.getKayttajaId()); // would be 7th if we had a keskustelu to refer to
@@ -148,10 +157,10 @@ public class ViestiDao implements Dao {
 
             saver.close();
             conn.close();
-            
+
             System.out.println("Saved message with title " + v.getOtsikko());
             return true;
-            
+
         } catch (Exception e) {
             System.out.println("Problem in saveOrUpdate in ViestiDao.java: " + e);
             return false;

@@ -14,17 +14,41 @@ body {
     font-family: monospace;
 }
 
+.kek-cont {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.kek {
+    width: 600px;
+    vertical-align: center;
+}
+
 .msg-cont {
     margin: 10px;
     padding: 10px;
     background-color: #74a377;
-    border-right: 4px solid darkseagreen;
+    border-left: 4px solid darkseagreen;
+    min-height: 150px;
+}
+.msg-profile-pic {
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-right: 15px;
+    border-radius: 10px;
+}
+m
+.msg-creator {
+    font-weight: bold;
+    margin-right: 10px;
+
 }
 
 #toolbar {
     margin: 0 auto;
-    
 }
+
 #toolbar span {
     margin-left: 10px;
     margin-right: 10px;
