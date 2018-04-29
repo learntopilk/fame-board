@@ -3,38 +3,30 @@
     <head>
         <title>FameBoard</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        
-        <div id="toolbar" th:utext="${toolbar}">
-            <!--<a href="/viestit">Viestit</a>
-            <a href="/login">Kirjaudu sisään</a>
-            <a href="/signup">Rekisteröidy</a>-->
-            
-            
-        </div>
-        
-        
-        <h1>Fame Board</h1>
-        <h3>Alaotsikko</h3>
-        
-        <h2>Tässä kuvalauta! jee!</h2>
-        
-        
-        
-        
-        
-        <div class="message-entry">
-            
-            <form method="POST" action="/viesti">
-                <input type="text" name="header" placeholder="Otsikko" required/></input>
-                <input type="text" name="content" placeholder="Viestisi" required/></input>
-                <input type="submit" name="submit" value="LÄHETÄ VIESTI PELE"></input>
-                
-            </form>
-            
-        </div>
-        
-    </body>
-</html>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="style2.css">
+                    </head>
+                    <body>
+
+                        <div id="toolbar" th:utext="${toolbar}">
+                            <!--<a href="/viestit">Viestit</a>
+                            <a href="/login">Kirjaudu sisään</a>
+                            <a href="/signup">Rekisteröidy</a>-->
+                        </div>
+                        <h1>Fame Board</h1>
+                        <h3>Alaotsikko</h3>
+
+                        <img class="kek" src="kekkonen.jpeg"/>
+                        <div class="message-entry">
+
+                            <!--<form method="POST" action="/viesti">
+                                <input type="text" name="header" placeholder="Otsikko" required/></input>
+                                <input type="text" name="content" placeholder="Viestisi" required/></input>
+                                <input type="submit" name="submit" value="LÄHETÄ VIESTI PELE"></input>
+
+                            </form>-->
+
+                        </div>
+
+                    </body>
+                    </html>

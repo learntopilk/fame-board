@@ -20,8 +20,9 @@ body {
 }
 
 .kek {
-    width: 600px;
-    vertical-align: center;
+    width: 480px;
+    vertical-align: center;n
+    margin: 0 auto;
 }
 
 .msg-cont {

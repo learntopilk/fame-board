@@ -7,9 +7,6 @@ import spark.*;
 import spark.Spark;
 import spark.Session;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-//import com.lambdaworks.crypto.SCrypt.*;
-//import com.lambdaworks.crypto.SCryptUtil.*;
-//import java.io.File;
 import Webserver.PwdProcess.*;
 import com.lambdaworks.crypto.SCryptUtil;
 
