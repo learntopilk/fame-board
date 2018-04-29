@@ -79,11 +79,17 @@ public class Main {
 
             String ots = req.queryParams("header");
             String sis = req.queryParams("content");
+            String uri = req.queryParams("url");
 
             // TODO: identity check AND enable username saving with messages.
             if (LoginController.userIsLogged(req)) {
                 // Saving the message
                 Viesti viesti = new Viesti(ots, sis);
+                if (uri != null && uri.length() > 4) {
+                    viesti.setKuvanURL(uri);
+                } else {
+                    viesti.setKuvanURL("kekkonen.jpeg");
+                }
                 viesti.setLuoja(req.session().attribute("currentUser"));
                 if (!v.saveOrUpdate(viesti)) {
                     return "<h4>Something went wrong when you were trying to save your message!</h4>";

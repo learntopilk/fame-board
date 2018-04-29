@@ -58,12 +58,13 @@ public class ViestiDao implements Dao {
                 do {
                     Viesti v = new Viesti(rs.getString("otsikko"), rs.getString("sisalto"), rs.getInt("id"), rs.getLong("luomisaika"));
                     String url = rs.getString("url_kuva");
-                    /*if (url.length() > 0 || url != null) {
+                    if (url != null && url.length() > 1) {
                         v.setKuvanURL(url);
                     } else {
-                        v.setKuvanURL("./kekkonen.jpeg");
-                    }*/
-                    v.setKuvanURL("kekkonen.jpeg");
+                        v.setKuvanURL("kekkonen.jpeg");
+                    }
+                    //v.setKuvanURL("kekkonen.jpeg");
+                    v.setId(rs.getInt("id"));
                     v.setKeskustelu_id(keskusteluId);
                     v.setLuoja(rs.getString("kayttajanNimi"));
                     v.setKayttajaId(rs.getInt("kayttaja_id"));
@@ -98,13 +99,15 @@ public class ViestiDao implements Dao {
                 String tek = rs.getString("kayttajanNimi");
                 Viesti v = new Viesti(ots, sis);
                 v.setLuoja(tek);
+                v.setId(rs.getInt("id"));
                 v.setPaiva(rs.getLong("luomisaika"));
-                /*if (url.length() > 0 || url != null) {
+                String url = rs.getString("url_kuva");
+                if (url != null && url.length() > 1) {
                     v.setKuvanURL(url);
                 } else {
-                    v.setKuvanURL("./kekkonen.jpeg");
-                }*/
-                v.setKuvanURL("kekkonen.jpeg");
+                    v.setKuvanURL("kekkonen.jpeg");
+                }
+                //v.setKuvanURL("kekkonen.jpeg");
                 a.add(v);
             }
 

@@ -62,6 +62,10 @@ public class Viesti {
     public String getOtsikko() {
         return this.otsikko;
     }
+    
+    public int getId() {
+        return this.id;
+    }
 
     public String getKuvanURL() {
         return this.kuvanURL;
@@ -133,6 +137,10 @@ public class Viesti {
     
     public void epatykkaa() {
         this.tykkayksia--;
+    }
+    
+    public void setId(int i) {
+        this.id = i;
     }
 
 }
