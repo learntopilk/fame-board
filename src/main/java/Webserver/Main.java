@@ -193,7 +193,7 @@ public class Main {
 
             map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
 
-            return new ModelAndView(map, "index");
+            return new ModelAndView(map, "index2");
         }, new ThymeleafTemplateEngine());
 
     }
