@@ -6,48 +6,51 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Kaikki viestit</title>
+        <title>FameBoard: All messages</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="A discussion forum with Kekkonen">
         <meta name="keywords" content="Kekkonen,chat,goodtime">
         <meta name="author" content="The Magic J">
+        <meta property="og:image" content="/kekkonen.jpeg">
+        <meta property="og:description" content="A discussion forum with the Grand K.">
+        <meta property="og:title" content="FameBoard">
         <link rel="stylesheet" href="style2.css">
     </head>
     <body>
         <h3 th:text="${welcome}"></h3>
         <div id="toolbar" th:utext="${toolbar}">
-            
-           <!-- <a href="/">Etusivu</a>-->
+
+            <!-- <a href="/">Etusivu</a>-->
 
         </div>
         <h2>Täällä näitä viestejä on!</h2>
         <ul style="list-style-type:none">
             <li th:each="viesti : ${messages}" class="msg-cont" th:id="${viesti.id}" style="list-style-type: none;">
-            
+
                 <H4 class="msg-header" th:text="${viesti.otsikko}"></h4>
                 <img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${viesti.kuvanURL})}"/>
                 <span class="msg-creator" th:text="${viesti.luoja}"></span>
                 <span class="msg-date" th:text="${viesti.paiva}"></span>
                 <p class="msg-content" th:text="${viesti.sisalto}"></p>
 
-            
-        </li>
-    </ul>
+
+            </li>
+        </ul>
 
 
-    <br>
+        <br>
 
-    <br>
-    <form method="POST" action="viesti">
-        <input type="text" name="header" placeholder="Otsikko" th:value="${edelOts}" required></input>
-        <input type="text" name="content" placeholder="Viesti tähän" th:value="${edelSis}"></input>
-       <!-- <input type="text" name="url" placeholder="URL" th:value=""></input>-->
-        <input type="submit" name="end" value="Valmis"></input>
-    </form>
-    <br>
-    <br>
+        <br>
+        <form method="POST" action="viesti">
+            <input type="text" name="header" placeholder="Otsikko" th:value="${edelOts}" required></input>
+            <input type="text" name="content" placeholder="Viesti tähän" th:value="${edelSis}"></input>
+            <!-- <input type="text" name="url" placeholder="URL" th:value=""></input>-->
+            <input type="submit" name="end" value="Valmis"></input>
+        </form>
+        <br>
+        <br>
 
-</body>
+    </body>
 
 </html>
