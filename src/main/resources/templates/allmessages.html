@@ -29,7 +29,7 @@ and open the template in the editor.
             <li th:each="viesti : ${messages}" class="msg-cont" th:id="${viesti.id}" style="list-style-type: none;">
 
                 <H4 class="msg-header" th:text="${viesti.otsikko}"></h4>
-                <img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${viesti.kuvanURL})}"/>
+                <img class="msg-profile-pic" th:src="@{${viesti.kuvanURL}}"/>
                 <span class="msg-creator" th:text="${viesti.luoja}"></span>
                 <span class="msg-date" th:text="${viesti.paiva}"></span>
                 <p class="msg-content" th:text="${viesti.sisalto}"></p>
@@ -45,7 +45,7 @@ and open the template in the editor.
         <form method="POST" action="viesti">
             <input type="text" name="header" placeholder="Otsikko" th:value="${edelOts}" required></input>
             <input type="text" name="content" placeholder="Viesti tähän" th:value="${edelSis}"></input>
-            <!-- <input type="text" name="url" placeholder="URL" th:value=""></input>-->
+            <input type="text" name="url" placeholder="Syötä kokonainen URL kuvaan"></input>
             <input type="submit" name="end" value="Valmis"></input>
         </form>
         <br>

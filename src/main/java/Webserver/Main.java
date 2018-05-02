@@ -88,7 +88,7 @@ public class Main {
                 if (uri != null && uri.length() > 4) {
                     viesti.setKuvanURL(uri);
                 } else {
-                    viesti.setKuvanURL("kekkonen.jpeg");
+                    viesti.setKuvanURL("./kekkonen.jpeg");
                 }
                 viesti.setLuoja(req.session().attribute("currentUser"));
                 if (!v.saveOrUpdate(viesti)) {

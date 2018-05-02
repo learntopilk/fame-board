@@ -103,9 +103,13 @@ public class ViestiDao implements Dao {
                 v.setPaiva(rs.getLong("luomisaika"));
                 String url = rs.getString("url_kuva");
                 if (url != null && url.length() > 1) {
-                    v.setKuvanURL(url);
+                    if(url.contains("https://") ) {
+                        v.setKuvanURL(url);
+                    } else {
+                        v.setKuvanURL("./" + url);
+                    }
                 } else {
-                    v.setKuvanURL("kekkonen.jpeg");
+                    v.setKuvanURL("./kekkonen.jpeg");
                 }
                 //v.setKuvanURL("kekkonen.jpeg");
                 a.add(v);
