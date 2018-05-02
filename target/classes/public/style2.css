@@ -14,6 +14,10 @@ body {
     font-family: monospace;
 }
 
+ul {
+    padding: 0px;
+}
+
 .kek-cont {
     width: 500px;
     margin: 0 auto;
@@ -39,7 +43,7 @@ body {
     margin-right: 15px;
     border-radius: 10px;
 }
-m
+
 .msg-creator {
     font-weight: bold;
     margin-right: 10px;
@@ -53,4 +57,44 @@ m
 #toolbar span {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+input[type=text] {
+    width: 100%;
+    margin: 15px auto;
+    height: 25px;
+    border-radius: 5px;
+    border: 2px solid grey;
+    font-family: monospace;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    border: 2px solid black;
+}
+#header {
+    font-size: 1.1em;
+    font-family: monospace
+}
+
+#content {
+    width: 100%;
+    height: 70px;
+    margin: auto;
+    border-radius: 5px;
+    border: 2px solid grey;
+    font-size: 0.9em;
+    font-family: monospace
+}
+:focus {
+    
+}
+
+#url {
+}
+
+footer {
+    height: 50px;
+    color: slategrey;
 }

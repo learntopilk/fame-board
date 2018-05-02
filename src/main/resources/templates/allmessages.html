@@ -43,14 +43,14 @@ and open the template in the editor.
 
         <br>
         <form method="POST" action="viesti">
-            <input type="text" name="header" placeholder="Otsikko" th:value="${edelOts}" required></input>
-            <input type="text" name="content" placeholder="Viesti tähän" th:value="${edelSis}"></input>
-            <input type="text" name="url" placeholder="Syötä kokonainen URL kuvaan"></input>
+            <input type="text" id="header" name="header" placeholder="Otsikko" th:value="${edelOts}" required></input>
+            <textarea type="text" id="content" name="content" placeholder="Viesti tähän" th:value="${edelSis}"></textarea>
+            <input type="text" id="url" name="url" placeholder="Syötä kokonainen URL kuvaan"></input>
             <input type="submit" name="end" value="Valmis"></input>
         </form>
         <br>
         <br>
-
+        <footer class="lightandblue">Copyright Magic J Corp, 2018.</footer>
     </body>
 
 </html>
