@@ -14,5 +14,36 @@ and open the template in the editor.
     <body>
         <div>THIS PAGE will display all messages posted by a user.</div>
         <p>This feature, however, has not been implemented yet. Go somewhere else, creep.</p>
+        <div id="info-box">
+            <h5 id="info-header"> My personal information:</h5>
+            <span>Username: </span><span th:text="${profile.name}"></span>
+            <span>Password: </span><span>No no not showing you dis</span
+            <span>User created: </span><span th:text="${profile.created}"></span>
+            <img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${kayttaja.kuvanURL})}"/>
+            <form action="/profilePic">
+                <input type="radio" value="kekkonen" id="kekkonen.jpeg" name="img">
+                <label for="kekkonen.jpeg">Kekkonen</label>
+                <input type="radio" value="guy" id="guy.jpg" name="img">
+                <label for="guy.jpeg">Some other guy</label>
+                <button type="submit">submit</button>
+            </form>
+        </div>
+        <div id="messages-box">
+            <h3>My messages</h3>
+            <ul style="list-style-type:none">
+                <li th:each="viesti : ${messages}" class="msg-cont" th:id="${viesti.id}" style="list-style-type: none;">
+
+                    <H4 class="msg-header" th:text="${viesti.otsikko}"></h4>
+                    <img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${viesti.kuvanURL})}"/>
+                    <span class="msg-creator" th:text="${viesti.luoja}"></span>
+                    <span class="msg-date" th:text="${viesti.paiva}"></span>
+                    <p class="msg-content" th:text="${viesti.sisalto}"></p>
+
+
+                </li>
+            </ul>
+
+        </div>    
     </body>
+
 </html>

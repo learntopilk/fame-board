@@ -61,7 +61,7 @@ public class ViestiDao implements Dao {
                     if (url != null && url.length() > 1) {
                         v.setKuvanURL(url);
                     } else {
-                        v.setKuvanURL("kekkonen.jpeg");
+                        v.setKuvanURL("guy.jpg");
                     }
                     //v.setKuvanURL("kekkonen.jpeg");
                     v.setId(rs.getInt("id"));

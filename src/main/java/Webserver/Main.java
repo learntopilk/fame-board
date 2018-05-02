@@ -182,6 +182,18 @@ public class Main {
 
             return " ";
         });
+        
+        Spark.get("/profile", (req, res) -> {
+            HashMap map = new HashMap();
+            if (LoginController.userIsLogged(req)) {
+                map.put("viestit", v.findAllByUsername(req.session().attribute("currentUser")));
+                map.put("kayttaja", k.findOne(req.session().attribute("currentUser")));
+                return new ModelAndView(map, "profile");
+            } else {
+                res.redirect("/login");
+                return null;
+            }
+        }, new ThymeleafTemplateEngine());
 
         //
         // "Catch-all" -reitti
