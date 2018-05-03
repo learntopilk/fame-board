@@ -49,6 +49,10 @@ public class Main {
         //Kirjautuminen
         Spark.get("/login", (req, res) -> {
             HashMap map = new HashMap();
+            if(LoginController.userIsLogged(req)) {
+                res.redirect("/profile");
+            }
+            map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
             return new ModelAndView(map, "signin");
         }, new ThymeleafTemplateEngine());
         
@@ -150,6 +154,7 @@ public class Main {
             if (req.session() != null) {
 
             }
+            map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
             return new ModelAndView(map, "signup");
         }, new ThymeleafTemplateEngine());
 
@@ -183,15 +188,26 @@ public class Main {
             return " ";
         });
         
-        Spark.get("/profile", (req, res) -> {
-            HashMap map = new HashMap();
-            if (LoginController.userIsLogged(req)) {
-                map.put("viestit", v.findAllByUsername(req.session().attribute("currentUser")));
-                map.put("kayttaja", k.findOne(req.session().attribute("currentUser")));
-                return new ModelAndView(map, "profile");
-            } else {
-                res.redirect("/login");
-                return null;
+        Spark.get("/profile", new TemplateViewRoute() {
+            @Override
+            public ModelAndView handle(Request req, Response res) throws Exception {
+                HashMap map = new HashMap();
+                if (LoginController.userIsLogged(req)) {
+                    
+                    List<Viesti> lis = new ArrayList<>();
+                    lis = v.findAllByUsername(req.session().attribute("currentUser"));
+                    Collections.sort(lis, (a, b) -> {
+                        return b.compareTo(a);
+                    });
+                    
+                    map.put("viestit", lis);
+                    map.put("kayttaja", k.findOne(req.session().attribute("currentUser")));
+                    map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
+                    return new ModelAndView(map, "profile");
+                } else {
+                    res.redirect("/login");
+                    return null;
+                }
             }
         }, new ThymeleafTemplateEngine());
 

@@ -103,7 +103,7 @@ public class ViestiDao implements Dao {
                 v.setPaiva(rs.getLong("luomisaika"));
                 String url = rs.getString("url_kuva");
                 if (url != null && url.length() > 1) {
-                    if(url.contains("https://") ) {
+                    if (url.contains("https://")) {
                         v.setKuvanURL(url);
                     } else {
                         v.setKuvanURL("./" + url);
@@ -128,7 +128,42 @@ public class ViestiDao implements Dao {
     }
 
     public List findAllByUsername(String username) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Viesti> l = new ArrayList<>();
+        try {
+            Connection conn = getConnection();
+
+            PreparedStatement prep = conn.prepareStatement("SELECT * FROM Viesti WHERE kayttajanNimi=?");
+            prep.setString(1, username);
+
+            ResultSet rs = prep.executeQuery();
+
+            while (rs.next()) {
+                String ots = rs.getString("otsikko");
+                String sis = rs.getString("sisalto");
+                String tek = rs.getString("kayttajanNimi");
+                Viesti v = new Viesti(ots, sis);
+                v.setLuoja(tek);
+                v.setId(rs.getInt("id"));
+                v.setPaiva(rs.getLong("luomisaika"));
+                String url = rs.getString("url_kuva");
+                if (url != null && url.length() > 1) {
+                    if (url.contains("https://")) {
+                        v.setKuvanURL(url);
+                    } else {
+                        v.setKuvanURL("./" + url);
+                    }
+                } else {
+                    v.setKuvanURL("./kekkonen.jpeg");
+                }
+                //v.setKuvanURL("kekkonen.jpeg");
+                l.add(v);
+            }
+        } catch (Exception e) {
+            System.out.println("Error in findAllByUsername: " + e);
+        }
+        return l;
+
+    //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List findAllByUserId(int id) {

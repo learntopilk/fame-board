@@ -3,39 +3,37 @@
     <head>
         <title>Signup to Fameboard</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style2.css">
-    </head>
-    <body>
-        
-        <div>
-            <a href="/viestit">Viestit</a>
-            <a href="/login">Kirjaudu sisään</a>
-            <a href="/signup">Rekisteröidy</a>
-            
-            
-        </div>
-        
-        
-        <h1>Fame Board Signup</h1>
-        <h3>Alaotsikko</h3>
-        
-        <h2>Kirjautu sisään! jee!</h2>
-        
-        
-        
-        
-        
-        <div class="message-entry">
-            
-            <form method="POST" action="/signup">
-                <input type="text" name="username" placeholder="katyjatunus" required/></input>
-                <input type="text" name="password" placeholder="slasana" required/></input>
-                <input type="submit" name="submit" value="SIGN UP PELE"></input>
-                
-            </form>
-            <footer class="lightandblue">Copyright Magic J Corp, 2018.</footer>
-        </div>
-        
-    </body>
-</html>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="style2.css">
+                    </head>
+                    <body>
+
+                        <div id="toolbar" th:utext="${toolbar}">
+                            <!--<a href="/viestit">Viestit</a>
+                            <a href="/login">Kirjaudu sisään</a>
+                            <a href="/signup">Rekisteröidy</a>-->
+                        </div>
+
+
+                        <h1>Fame Board Signup</h1>
+                        <!--<h3>Alaotsikko</h3>-->
+
+                        <h2>Kirjautu sisään! jee!</h2>
+
+
+
+                        <p>Joo me näytetään sun salasana kaikille, minkäs meinasit tehdä</p>
+
+                        <div class="message-entry">
+
+                            <form method="POST" action="/signup">
+                                <input type="text" name="username" placeholder="katyjatunus" required/></input>
+                                <input type="text" name="password" placeholder="slasana" required/></input>
+                                <input type="submit" name="submit" value="SIGN UP PELE"></input>
+
+                            </form>
+                            <footer class="lightandblue">Copyright Magic J Corp, 2018.</footer>
+                        </div>
+
+                    </body>
+                    </html>

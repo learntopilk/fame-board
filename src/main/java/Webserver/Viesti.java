@@ -2,7 +2,7 @@ package Webserver;
 
 import java.util.Date;
 
-public class Viesti {
+public class Viesti implements Comparable<Viesti> {
 
     private int id;
     private int keskustelu_id;
@@ -16,6 +16,11 @@ public class Viesti {
     private int tykkayksia;
     private Date paiva;
 
+    /**
+     *
+     * @param otsikko
+     * @param sisalto
+     */
     public Viesti(String otsikko, String sisalto) {
         this.sisalto = sisalto;
         this.otsikko = otsikko;
@@ -62,7 +67,7 @@ public class Viesti {
     public String getOtsikko() {
         return this.otsikko;
     }
-    
+
     public int getId() {
         return this.id;
     }
@@ -86,7 +91,7 @@ public class Viesti {
     public int getKayttajaId() {
         return this.kayttaja_id;
     }
-    
+
     public int getTykkaystenMaara() {
         return this.tykkayksia;
     }
@@ -118,29 +123,41 @@ public class Viesti {
     public void setKayttajaId(int id) {
         this.kayttaja_id = id;
     }
-    
+
     public void setTykkaystenMaara(int t) {
         this.tykkayksia = t;
     }
-    
-    public void setPaiva(long paiv){
+
+    public void setPaiva(long paiv) {
         this.paiva = new Date(paiv);
     }
-    
-    public Date getPaiva(){
+
+    public Date getPaiva() {
         return this.paiva;
     }
-    
+
     public void tykkaa() {
         this.tykkayksia++;
     }
-    
+
     public void epatykkaa() {
         this.tykkayksia--;
     }
-    
+
     public void setId(int i) {
         this.id = i;
+    }
+
+    @Override
+    public int compareTo(Viesti v) {
+
+        int compareQuantity = (int)(((Viesti) v).getLuomisaika() / 1000);
+
+        //ascending order
+        //return ((int) (this.luomisaika / 1000)) - compareQuantity;
+
+        //descending order
+        return compareQuantity - ((int) (this.luomisaika / 1000));
     }
 
 }

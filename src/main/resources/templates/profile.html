@@ -12,14 +12,17 @@ and open the template in the editor.
         <link rel="stylesheet" href="style2.css">
     </head>
     <body>
+        
+        <div id="toolbar" th:utext="${toolbar}"></div>
+        <h2>Profile</h2>
         <div>THIS PAGE will display all messages posted by a user.</div>
         <p>This feature, however, has not been implemented yet. Go somewhere else, creep.</p>
         <div id="info-box">
             <h5 id="info-header"> My personal information:</h5>
-            <span>Username: </span><span th:text="${profile.name}"></span>
-            <span>Password: </span><span>No no not showing you dis</span
-            <span>User created: </span><span th:text="${profile.created}"></span>
-            <img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${kayttaja.kuvanURL})}"/>
+            <span>Username: </span><span th:text="${kayttaja.kayttajanimi}"></span><br/>
+            <span>Password: </span><span>No no not showing you dis</span><br/>
+            <span>User created: </span><span th:text="${kayttaja.luomisAika}"></span>
+            <!--NOT IMPLEMENTED YET<img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${kayttaja.kuvanURL})}"/>-->
             <form action="/profilePic">
                 <input type="radio" value="kekkonen" id="kekkonen.jpeg" name="img">
                 <label for="kekkonen.jpeg">Kekkonen</label>
@@ -31,7 +34,7 @@ and open the template in the editor.
         <div id="messages-box">
             <h3>My messages</h3>
             <ul style="list-style-type:none">
-                <li th:each="viesti : ${messages}" class="msg-cont" th:id="${viesti.id}" style="list-style-type: none;">
+                <li th:each="viesti : ${viestit}" class="msg-cont" th:id="${viesti.id}" style="list-style-type: none;">
 
                     <H4 class="msg-header" th:text="${viesti.otsikko}"></h4>
                     <img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${viesti.kuvanURL})}"/>
