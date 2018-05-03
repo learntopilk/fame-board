@@ -38,9 +38,9 @@ public class Main {
         
         System.out.println("Server starting.");
         
-        //WEBSOCKET TEST
         staticFileLocation("/public");
         
+        //WEBSOCKET TEST
         //webSocket("/echo", EchoWebSocket.class);
 
         /**
@@ -64,8 +64,6 @@ public class Main {
 
             LoginController.handleLoginPost(req, res, kayt);
 
-            // TODO: Eliminate these
-            //res.redirect("/viestit");
             return " ";
         });
 
@@ -74,8 +72,6 @@ public class Main {
             System.out.println("Signing out");
             req.session().removeAttribute("currentUser");
             LoginController.handleLogoutPost(req, res);
-            //delete(req.session());
-            //res.redirect("/");
             return " ";
         });
 
@@ -85,7 +81,7 @@ public class Main {
             String sis = req.queryParams("content");
             String uri = req.queryParams("url");
 
-            // TODO: identity check AND enable username saving with messages.
+            // Jos kirjautunut sisään tallennetaan viesti ja päivitetään näkymä
             if (LoginController.userIsLogged(req)) {
                 // Saving the message
                 Viesti viesti = new Viesti(ots, sis);
@@ -113,7 +109,6 @@ public class Main {
 
         });
 
-        //
         //
         // Kaikkien viestien listaus
         Spark.get("/viestit", (req, res) -> {
@@ -144,7 +139,6 @@ public class Main {
             return new ModelAndView(map, "allmessages");
         }, new ThymeleafTemplateEngine());
 
-        //
         //
         // Käyttäjän luominen
         Spark.get("/signup", (req, res) -> {
@@ -188,39 +182,32 @@ public class Main {
             return " ";
         });
         
-        Spark.get("/profile", new TemplateViewRoute() {
-            @Override
-            public ModelAndView handle(Request req, Response res) throws Exception {
-                HashMap map = new HashMap();
-                if (LoginController.userIsLogged(req)) {
-                    
-                    List<Viesti> lis = new ArrayList<>();
-                    lis = v.findAllByUsername(req.session().attribute("currentUser"));
-                    Collections.sort(lis, (a, b) -> {
-                        return b.compareTo(a);
-                    });
-                    
-                    map.put("viestit", lis);
-                    map.put("kayttaja", k.findOne(req.session().attribute("currentUser")));
-                    map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
-                    return new ModelAndView(map, "profile");
-                } else {
-                    res.redirect("/login");
-                    return null;
-                }
+        Spark.get("/profile", (req, res) -> {
+            HashMap map = new HashMap();
+            if (LoginController.userIsLogged(req)) {
+                
+                List<Viesti> lis = new ArrayList<>();
+                // Sorting is not working
+                lis = v.findAllByUsername(req.session().attribute("currentUser"));
+                Collections.sort(lis, (a, b) -> {
+                    return b.compareTo(a);
+                });
+                
+                map.put("viestit", lis);
+                map.put("kayttaja", k.findOne(req.session().attribute("currentUser")));
+                map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
+                return new ModelAndView(map, "profile");
+            } else {
+                res.redirect("/login");
+                return null;
             }
         }, new ThymeleafTemplateEngine());
 
-        //
         // "Catch-all" -reitti
         Spark.get("*", (req, res) -> {
             HashMap map = new HashMap<>();
             System.out.println(req.session().attributes());
             System.out.println("" + req.session().attribute("currentUser"));
-            /*if (req.session().attribute("currentUser")) {
-                System.out.println("User session active: " + req.session().attribute("currentUser"));
-            }*/
-            //Set<String> attr = req.session().attributes();
 
             map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
 
