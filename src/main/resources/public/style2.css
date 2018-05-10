@@ -100,6 +100,16 @@ input[type=text]:focus {
     font-size: 0.9em;
     font-family: monospace
 }
+
+#morotus {
+    background-color: pink;
+    width: 100%;
+    border-radius: 4px;
+    padding-left: 5px;
+    
+    
+}
+
 :focus {
     
 }

@@ -15,7 +15,6 @@ public class Main {
 
     public static ViestiDao v;
     public static KayttajaDao k;
-    //public static KeskusteluDao kesk;
 
     public static void main(String[] args) throws SQLException {
         
@@ -25,8 +24,6 @@ public class Main {
         }
 
         k = new KayttajaDao();
-        //k.reset(); // REsetting Viesti for now
-        //kesk = new KeskusteluDao();
         v = new ViestiDao();
         
         HashMap<String, String> profilePics = new HashMap<>();
@@ -37,10 +34,6 @@ public class Main {
         
         staticFileLocation("/public");
         
-        /**
-         * R E I T I T
-         */
-        //Kirjautuminen
         Spark.get("/login", (req, res) -> {
             HashMap map = new HashMap();
             if(LoginController.userIsLogged(req)) {
@@ -54,14 +47,11 @@ public class Main {
             String name = req.queryParams("username");
             String pwd = req.queryParams("password");
             Kayttaja kayt = new Kayttaja(name, pwd);
-            //System.out.println("user: " + testableName + ", pwd: " + testablePwd);
 
             LoginController.handleLoginPost(req, res, kayt);
-
             return " ";
         });
 
-        // HACK
         Spark.get("/signout", (req, res) -> {
             System.out.println("Signing out");
             LoginController.handleLogoutPost(req, res);
@@ -118,11 +108,11 @@ public class Main {
 
         });
 
-        //
-        // Kaikkien viestien listaus
+        // List all messages 
         Spark.get("/viestit", (req, res) -> {
             HashMap map = new HashMap<>();
 
+            // Saying hi to a new user
             if (req.session().attribute("fresh") == "true") {
                 req.session().removeAttribute("fresh");
                 String name = req.session().attribute("currentUser");
@@ -170,7 +160,6 @@ public class Main {
             //Onko käyttäjänimi uniikki?
             if (k.findOne(Name) != null) {
                 return ("<h4>Käyttäjänimi on jo olemassa! <br/>Kokeile toista käyttäjänimeä.</h4><a href=\"/\">Etusivulle</a>");
-                //res.redirect("/signup");
             }
 
             // CHANGE THIS IN THE DATABASE
