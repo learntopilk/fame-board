@@ -55,7 +55,6 @@ public class Viesti implements Comparable<Viesti> {
     public Viesti(String otsikko, String sisalto, int id, long time) {
         this.otsikko = otsikko;
         this.sisalto = sisalto;
-        //this.kuvanURL = kuvanURL;
         this.id = id;
         this.luomisaika = time;
     }

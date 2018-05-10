@@ -101,8 +101,9 @@ public class ViestiDao implements Dao {
                 v.setLuoja(tek);
                 v.setId(rs.getInt("id"));
                 v.setPaiva(rs.getLong("luomisaika"));
+                
                 String url = rs.getString("url_kuva");
-                if (url != null && url.length() > 1) {
+                if (url != null && url.length() > 4) {
                     if (url.contains("https://")) {
                         v.setKuvanURL(url);
                     } else {
@@ -111,8 +112,8 @@ public class ViestiDao implements Dao {
                 } else {
                     v.setKuvanURL("./kekkonen.jpeg");
                 }
-                //v.setKuvanURL("kekkonen.jpeg");
                 a.add(v);
+                
             }
 
             rs.close();
@@ -145,25 +146,29 @@ public class ViestiDao implements Dao {
                 v.setLuoja(tek);
                 v.setId(rs.getInt("id"));
                 v.setPaiva(rs.getLong("luomisaika"));
+                
                 String url = rs.getString("url_kuva");
-                if (url != null && url.length() > 1) {
-                    if (url.contains("https://")) {
+                System.out.println(url);
+                if (url != null && url.length() > 4) {
+                    System.out.println(url.contains("https://"));
+                    System.out.println(url.startsWith("http"));
+                    
+                    if (url.contains("https://") || url.startsWith("http")) {
                         v.setKuvanURL(url);
                     } else {
                         v.setKuvanURL("./" + url);
+                        System.out.println();
                     }
                 } else {
                     v.setKuvanURL("./kekkonen.jpeg");
                 }
-                //v.setKuvanURL("kekkonen.jpeg");
                 l.add(v);
+                
             }
         } catch (Exception e) {
             System.out.println("Error in findAllByUsername: " + e);
         }
         return l;
-
-    //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List findAllByUserId(int id) {

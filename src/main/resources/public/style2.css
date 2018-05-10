@@ -51,12 +51,25 @@ ul {
 }
 
 #toolbar {
-    margin: 0 auto;
+    margin: 10px auto;
+    
 }
 
 #toolbar span {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 45px;
+    
+}
+
+.toolbar-link {
+    
+}
+
+#toolbar span:first-child {
+    margin-left: 0px;
+}
+
+#toolbar span:last-child {
+    /*margin-right: 0px*/
 }
 
 input[type=text] {

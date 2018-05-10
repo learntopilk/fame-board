@@ -23,13 +23,13 @@ and open the template in the editor.
             <span>Password: </span><span>No no not showing you dis</span><br/>
             <span>User created: </span><span th:text="${kayttaja.luomisAika}"></span>
             <!--NOT IMPLEMENTED YET<img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${kayttaja.kuvanURL})}"/>-->
-            <form action="/profilePic">
+            <!--<form action="/profilePic">
                 <input type="radio" value="kekkonen" id="kekkonen.jpeg" name="img">
                 <label for="kekkonen.jpeg">Kekkonen</label>
                 <input type="radio" value="guy" id="guy.jpg" name="img">
                 <label for="guy.jpeg">Some other guy</label>
                 <button type="submit">submit</button>
-            </form>
+            </form>-->
         </div>
         <div id="messages-box">
             <h3>My messages</h3>
@@ -37,7 +37,7 @@ and open the template in the editor.
                 <li th:each="viesti : ${viestit}" class="msg-cont" th:id="${viesti.id}" style="list-style-type: none;">
 
                     <H4 class="msg-header" th:text="${viesti.otsikko}"></h4>
-                    <img class="msg-profile-pic" th:src="@{./{kuva} (kuva=${viesti.kuvanURL})}"/>
+                    <img class="msg-profile-pic" th:src="@{${viesti.kuvanURL}}"/>
                     <span class="msg-creator" th:text="${viesti.luoja}"></span>
                     <span class="msg-date" th:text="${viesti.paiva}"></span>
                     <p class="msg-content" th:text="${viesti.sisalto}"></p>
