@@ -5,10 +5,7 @@ import java.sql.SQLException;
 import java.util.*;
 import spark.*;
 import spark.Spark;
-import spark.Session;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import Webserver.PwdProcess.*;
-import com.lambdaworks.crypto.SCryptUtil;
 
 import Controllers.LoginController;
 import Controllers.ToolbarController;
@@ -21,9 +18,8 @@ public class Main {
     //public static KeskusteluDao kesk;
 
     public static void main(String[] args) throws SQLException {
-
-        // Tämä asettaa herokun portin ympäristömuuttujan määräämäksi,
-        // jos ympäristömuuttuja on olemassa. Herokua varten tärkeä!
+        
+        // Init database connectivity
         if (System.getenv("PORT") != null) {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
@@ -33,16 +29,14 @@ public class Main {
         //kesk = new KeskusteluDao();
         v = new ViestiDao();
         
-        //RESET
-        //k.reset();
+        HashMap<String, String> profilePics = new HashMap<>();
+        profilePics.put("kekkonen", "kekkonen.jpeg");
+        profilePics.put("Some guy", "guy.jpg");
         
         System.out.println("Server starting.");
         
         staticFileLocation("/public");
         
-        //WEBSOCKET TEST
-        //webSocket("/echo", EchoWebSocket.class);
-
         /**
          * R E I T I T
          */
@@ -70,7 +64,6 @@ public class Main {
         // HACK
         Spark.get("/signout", (req, res) -> {
             System.out.println("Signing out");
-            req.session().removeAttribute("currentUser");
             LoginController.handleLogoutPost(req, res);
             return " ";
         });
@@ -80,7 +73,23 @@ public class Main {
             String ots = req.queryParams("header");
             String sis = req.queryParams("content");
             String uri = req.queryParams("url");
+            
+            // Tsekataan pituusrajat
+            // TODO: Muuta literaaleiksi ja vie tarkistus omaan moduuliinsa
+            if (ots.length() > 160) {
+                return "<h4>Otsikko liian pitkä!</h4>";
+            } 
+            if (sis.length() > 3000) {
+                return "<h4>Message too long!</h4>";
+            }
+            if (uri.length() > 300) {
+                return "<h4>Image URL too long!</h4>";
+            }
+            
+            // TODO: Laita järjestelmä tarkistamaan, osoittaako URL kuvaan
+            
 
+            //TODO: Luo tätä varten oma aliohjelma
             // Jos kirjautunut sisään tallennetaan viesti ja päivitetään näkymä
             if (LoginController.userIsLogged(req)) {
                 // Saving the message
@@ -206,11 +215,7 @@ public class Main {
         // "Catch-all" -reitti
         Spark.get("*", (req, res) -> {
             HashMap map = new HashMap<>();
-            System.out.println(req.session().attributes());
-            System.out.println("" + req.session().attribute("currentUser"));
-
             map.put("toolbar", ToolbarController.parseToolbar(LoginController.userIsLogged(req)));
-
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
